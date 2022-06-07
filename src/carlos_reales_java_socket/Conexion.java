@@ -12,8 +12,10 @@ import java.net.Socket;
 import java.util.Scanner;
 
 /**
- *
- * @author aisca
+ *Superclase que se encarga de inicializar la conexión, las constante puerto y el
+ * host de la conexión y utiliza las clases Socket y Server Socket para crear un
+ * servidor y un cliente
+ * @author Carlos Reales
  */
 public class Conexion {
    
@@ -26,7 +28,13 @@ public class Conexion {
     protected DataInputStream entradaServidor, entradaCliente;
     protected Scanner reader;//Flujo de datos de salida
     
-
+    /**
+     * Constructor de la clase que recoge un string que recibirá de la clase Ser-
+     * vidor, y si lo recibe correctamente creará una instancia de la clase Socket 
+     * y otra de Server Socket con el puerto declarado. 
+     * @param tipo recibira una cadena de texto concreta para activar el servidor
+     * @throws IOException 
+     */
     public Conexion(String tipo) throws IOException //Constructor
     {
         if(tipo.equalsIgnoreCase("servidor"))
