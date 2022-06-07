@@ -17,7 +17,7 @@ import java.util.Scanner;
  * servidor y un cliente
  * @author Carlos Reales
  */
-public class Conexion {
+public abstract class Conexion {
    
     private final int PUERTO = 1234; //Puerto para la conexión
     private final String HOST = "localhost"; //Host para la conexión
@@ -37,15 +37,32 @@ public class Conexion {
      */
     public Conexion(String tipo) throws IOException //Constructor
     {
+        boolean serverConn = false;
         if(tipo.equalsIgnoreCase("servidor"))
         {
             serverSock = new ServerSocket(PUERTO);//Se crea el socket para el servidor en puerto 1234
             clientSock = new Socket(); //Socket para el cliente
+            serverConn = true;
         }
         else
         {
-            clientSock = new Socket(HOST, PUERTO); //Socket para el cliente en localhost en puerto 1234
+            if (serverConn == true){
+                clientSock = new Socket(HOST, PUERTO); //Socket para el cliente en localhost en puerto 1234
+            }
+            else
+            
+            System.out.println("No ha iniciado el servidor. Por favor, ejecute el servidor usando el fichero mainServer.java\nGracias.");
+            System.out.println("\nCliente finalizado");
+            
         }
     }
+    
+    /**
+     * Metodo creado para implementarse en servidor y en cliente
+     * @throws IOException 
+     */
+     abstract void finConexion() throws IOException;
+       
+    
  
 }

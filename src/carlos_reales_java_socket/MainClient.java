@@ -7,12 +7,13 @@ package carlos_reales_java_socket;
 import java.io.IOException;
 
 /**
- *
- * @author aisca
+ *Clase main para iniciar el cliente
+ * @author Carlos Reales
  */
 public class MainClient {
 
     /**
+     * Crea una instancia cliente y utiliza el metodo iniciarCliente
      * @param args the command line arguments
      * @throws java.io.IOException
      */
@@ -21,6 +22,7 @@ public class MainClient {
 
         System.out.println("Iniciando cliente\n");
         cli.iniciarCliente(); //Se inicia el cliente
+       
         
     }
     

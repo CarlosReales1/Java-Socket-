@@ -7,12 +7,13 @@ package carlos_reales_java_socket;
 import java.io.IOException;
 
 /**
- *
- * @author aisca
+ *Clase main para iniciar el servidor
+ * @author Carlos Reales
  */
 public class MainServer {
 
     /**
+     * Crea una instancia servidor y utiliza el metodo iniciarServer
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {

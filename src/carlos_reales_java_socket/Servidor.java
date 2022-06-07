@@ -56,27 +56,49 @@ public class Servidor extends Conexion {
             salidaCliente = new DataOutputStream(clientSock.getOutputStream());
             entradaCliente = new DataInputStream(clientSock.getInputStream());
             
-            int tipo = entradaCliente.readInt();
+            int tipo = entradaCliente.readInt();//Lee el tipo de operacion enviada por el cliente
             int n1 = 0, n2 = 0;
+            float d1, d2;
             
+            /*Informa al cliente del tipo de operación elegida y tras pasar por
+            la función correspondiente envia al clinete el resultado
+            */
             switch(tipo){
+                
                 case 1:
+                    System.out.println("Operacion recibida");
                     salidaCliente.writeUTF("Has elegido suma");
-                    salidaCliente.writeInt(sumar(recibirNumeroUno(n1),recibirNumeroDos(n2)));
+                    n1=entradaCliente.readInt();
+                    System.out.println("Primer número recibido(" + n1 +")");
+                    n2=entradaCliente.readInt();
+                    System.out.println("Segundo número recibido(" + n2 +")");
+                    salidaCliente.writeInt(sumar(n1,n2));
+                    System.out.println("Fin de la operación");
+                    calculadora();
                     break;
                 case 2:
+                    System.out.println("Operacion recibida");
                     salidaCliente.writeUTF("Has elegido resta");
-                    salidaCliente.writeInt(restar( recibirNumeroUno(n1),recibirNumeroDos(n2)));
+                    n1=entradaCliente.readInt();
+                    System.out.println("Primer número recibido(" + n1 +")");
+                    n2=entradaCliente.readInt();
+                    System.out.println("Segundo número recibido(" + n2 +")");
+                    salidaCliente.writeInt(restar(n1,n2));
+                    System.out.println("Fin de la operación");
+                    calculadora();
                     break;
                 case 3:
+                    System.out.println("Operacion recibida");
                     salidaCliente.writeUTF("Has elegido multiplicar");
-                    salidaCliente.writeInt(multiplicar(recibirNumeroUno(n1),recibirNumeroDos(n2)));
+                    n1=entradaCliente.readInt();
+                    System.out.println("Primer número recibido(" + n1 +")");
+                    n2=entradaCliente.readInt();
+                    System.out.println("Segundo número recibido(" + n2 +")");
+                    salidaCliente.writeInt(multiplicar(n1,n2));
+                    System.out.println("Fin de la operación");
+                    calculadora();
                     break;
-                    
-                case 4:
-                    salidaCliente.writeUTF("Has elegido dividir");
-                    salidaCliente.writeInt(dividir(recibirNumeroUno(n1),recibirNumeroDos(n2)));
-                    break;
+
                 default:
                     System.out.println("Fin de la conexión");
                     serverSock.close();//Se finaliza la conexión con el cliente
@@ -85,33 +107,10 @@ public class Servidor extends Conexion {
         }catch(IOException ex){
             System.out.println(ex.getMessage());
         }
-            
-    }    
-
-
+           
         
-
-    /**
-     * Funcion  que se encarga de verificar que se está recibiendo correctamente 
-     * los números de la operación
-     * @param n el numero enviado por el cliente
-     * @return 
-     * @throws IOException 
-     */
-    public int recibirNumeroUno(int n) throws IOException{
-
-        n = entradaCliente.readInt();
-        System.out.println("Primer número recibido");
-
-        return n;
-    }
-        public int recibirNumeroDos(int n) throws IOException{
-       
-            n = entradaCliente.readInt();
-            System.out.println("Segundo número recibido");
-            return n;
-    }
-        
+    }        
+  
     /**
      * Funcion que realiza la suma de los números y devuelve el resultado
      * @param a
@@ -151,4 +150,13 @@ public class Servidor extends Conexion {
     public int dividir(int a, int b){
         return a / b;
     }
+    
+    /**
+  * Metodo que cierra la conexion del servidor
+  * @throws IOException 
+  */
+ public void finConexion()throws IOException{
+     serverSock.close();
+      System.out.println("Servidor finalizado");
+ }
 }
